@@ -1,0 +1,26 @@
+{
+  "name": "avaliamed",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "importar": "node scripts/importar-medicos.js",
+    "importar:cardio": "node scripts/importar-medicos.js --especialidade 42",
+    "importar:detalhes": "node scripts/importar-medicos.js --detalhes"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.44.0",
+    "lucide-react": "^0.395.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-hook-form": "^7.52.0",
+    "react-router-dom": "^6.24.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.1",
+    "vite": "^5.3.1"
+  }
+}

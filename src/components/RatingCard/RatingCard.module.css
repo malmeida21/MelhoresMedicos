@@ -1,0 +1,29 @@
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 1rem 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: .6rem;
+}
+.mine { border-color: var(--color-primary); background: var(--color-primary-light); }
+
+.top { display: flex; align-items: flex-start; justify-content: space-between; gap: .5rem; }
+.autorInfo { display: flex; flex-direction: column; gap: .1rem; }
+.autor { font-weight: 600; font-size: .875rem; }
+.data  { font-size: .75rem; color: var(--color-text-muted); }
+
+.recommend { display: flex; gap: .5rem; }
+.yes { display: flex; align-items: center; gap: .25rem; font-size: .78rem; color: var(--color-success); }
+.no  { display: flex; align-items: center; gap: .25rem; font-size: .78rem; color: var(--color-danger); }
+
+.section { display: flex; flex-direction: column; gap: .2rem; }
+.sectionLabel { font-size: .75rem; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; color: var(--color-text-muted); }
+.text { font-size: .875rem; white-space: pre-wrap; }
+
+.footer { display: flex; align-items: center; gap: .5rem; margin-top: .25rem; padding-top: .5rem; border-top: 1px solid var(--color-border); }
+.curtidoBtn { color: var(--color-primary) !important; }
+.flag { color: var(--color-text-muted); }
+.flag:hover { color: var(--color-danger); }
+.denunciado { font-size: .75rem; color: var(--color-danger); margin-left: auto; }

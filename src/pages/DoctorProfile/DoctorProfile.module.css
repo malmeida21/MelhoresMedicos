@@ -1,0 +1,147 @@
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: .3rem;
+  font-size: .875rem;
+  color: var(--color-text-muted);
+  margin-bottom: 1.25rem;
+}
+.back:hover { color: var(--color-primary); }
+
+.profileCard {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: 1.5rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.avatarLg {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.profileInfo { flex: 1; min-width: 180px; }
+.nome { font-size: 1.3rem; font-weight: 700; margin-bottom: .25rem; }
+.meta {
+  display: flex;
+  align-items: center;
+  gap: .35rem;
+  font-size: .875rem;
+  color: var(--color-text-muted);
+  margin-top: .2rem;
+}
+.crm { font-size: .8rem; color: var(--color-text-muted); margin-top: .3rem; }
+
+.profileStats {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .25rem;
+}
+.avalCount { font-size: .78rem; color: var(--color-text-muted); }
+.pct { display: flex; align-items: center; gap: .25rem; font-size: .78rem; color: var(--color-success); }
+
+.profileActions {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  margin-left: auto;
+  align-self: center;
+}
+@media (max-width: 560px) {
+  .profileActions { width: 100%; flex-direction: row; }
+}
+
+/* Telefones / Endereços */
+.infoGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+}
+
+.infoCard {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 1rem 1.1rem;
+}
+
+.infoTitle {
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  font-size: .85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  color: var(--color-text-muted);
+  margin-bottom: .75rem;
+}
+
+.infoList { display: flex; flex-direction: column; gap: .5rem; }
+
+.infoItem {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+.telLink {
+  font-size: .9rem;
+  font-weight: 500;
+  color: var(--color-primary);
+}
+.telLink:hover { text-decoration: underline; }
+
+.infoBadge {
+  font-size: .7rem;
+  padding: .15rem .5rem;
+  border-radius: var(--radius-full);
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+  font-weight: 500;
+}
+
+.endItem {
+  display: flex;
+  flex-direction: column;
+  gap: .2rem;
+  padding-bottom: .5rem;
+  border-bottom: 1px solid var(--color-border);
+}
+.endItem:last-child { border-bottom: none; padding-bottom: 0; }
+
+.endNum { font-size: .72rem; font-weight: 600; color: var(--color-text-muted); text-transform: uppercase; }
+
+.address {
+  font-size: .875rem;
+  font-style: normal;
+  line-height: 1.55;
+  color: var(--color-text);
+}
+
+.mapsLink {
+  font-size: .78rem;
+  color: var(--color-primary);
+  font-weight: 500;
+}
+.mapsLink:hover { text-decoration: underline; }
+
+/* Avaliações */
+.avalTitle { font-size: 1rem; font-weight: 600; margin-bottom: 1rem; }
+.avalList { display: flex; flex-direction: column; gap: .75rem; }

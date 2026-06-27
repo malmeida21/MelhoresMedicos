@@ -1,0 +1,110 @@
+.wrap { display: flex; flex-direction: column; gap: 1rem; }
+
+.hint { font-size: .875rem; color: var(--color-text-muted); }
+
+.results {
+  display: flex;
+  flex-direction: column;
+  gap: .35rem;
+  max-height: 380px;
+  overflow-y: auto;
+  padding-right: 2px;
+}
+
+.loadingRow {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  color: var(--color-text-muted);
+  font-size: .875rem;
+  padding: .5rem 0;
+}
+
+.notFound {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .75rem;
+  padding: 1.5rem 0;
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: .875rem;
+}
+.notFound strong { color: var(--color-text); }
+
+.resultItem {
+  display: flex;
+  align-items: center;
+  gap: .85rem;
+  padding: .75rem .9rem;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--color-border);
+  background: var(--color-surface);
+  text-align: left;
+  width: 100%;
+  cursor: pointer;
+  transition: border-color .12s, background .12s;
+}
+.resultItem:hover {
+  border-color: var(--color-primary);
+  background: var(--color-primary-light);
+}
+
+.itemAvatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: .85rem;
+  flex-shrink: 0;
+}
+
+.itemInfo {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: .15rem;
+}
+.itemNome {
+  font-weight: 600;
+  font-size: .9rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.itemMeta {
+  display: flex;
+  align-items: center;
+  gap: .3rem;
+  font-size: .75rem;
+  color: var(--color-text-muted);
+}
+.itemCrm { font-size: .72rem; color: var(--color-text-muted); }
+
+.itemNota {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: .1rem;
+  flex-shrink: 0;
+}
+.notaVal { font-size: 1.1rem; font-weight: 700; color: var(--color-primary); }
+.notaCount { font-size: .7rem; color: var(--color-text-muted); }
+.semAval { font-size: .72rem; color: var(--color-text-muted); }
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .4rem;
+  padding: 2rem 0 1rem;
+  color: var(--color-text-muted);
+  font-size: .875rem;
+}
+.emptyIcon { opacity: .25; }

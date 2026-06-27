@@ -1,0 +1,18 @@
+.wrap {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: color-mix(in srgb, var(--note-color) 12%, transparent);
+  border-radius: var(--radius-md);
+  color: var(--note-color);
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.sm  { padding: .25rem .5rem;  font-size: 1rem;   min-width: 44px; }
+.md  { padding: .4rem .75rem;  font-size: 1.4rem; min-width: 56px; }
+.lg  { padding: .6rem 1rem;    font-size: 2rem;   min-width: 72px; }
+
+.value { font-variant-numeric: tabular-nums; }
+.label { font-size: .7rem; font-weight: 500; opacity: .85; }
