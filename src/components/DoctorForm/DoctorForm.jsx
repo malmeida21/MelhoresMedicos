@@ -23,7 +23,7 @@ export function DoctorForm({ open, onClose, onCadastrado }) {
     defaultValues: {
       nome: '', crm: '', uf_crm: '', especialidade: '', cidade: '', estado: '',
       telefones: [{ numero: '', tipo: 'Consultório' }],
-      enderecos: [],
+      enderecos: [{ ...ENDERECO_VAZIO }],
     },
   })
 
@@ -99,15 +99,26 @@ export function DoctorForm({ open, onClose, onCadastrado }) {
 
             <div className="grid-2">
               <div className="form-group">
-                <label htmlFor="crm">CRM</label>
-                <input id="crm" className="form-control" placeholder="123456" {...register('crm')} />
+                <label htmlFor="crm">CRM *</label>
+                <input
+                  id="crm"
+                  className={`form-control ${errors.crm ? 'error' : ''}`}
+                  placeholder="123456"
+                  {...register('crm', { required: 'CRM obrigatório' })}
+                />
+                {errors.crm && <span className="error-msg">{errors.crm.message}</span>}
               </div>
               <div className="form-group">
-                <label htmlFor="uf_crm">UF do CRM</label>
-                <select id="uf_crm" className="form-control" {...register('uf_crm')}>
+                <label htmlFor="uf_crm">UF do CRM *</label>
+                <select
+                  id="uf_crm"
+                  className={`form-control ${errors.uf_crm ? 'error' : ''}`}
+                  {...register('uf_crm', { required: 'UF obrigatória' })}
+                >
                   <option value="">Selecione</option>
                   {UF_LIST.map(uf => <option key={uf} value={uf}>{uf}</option>)}
                 </select>
+                {errors.uf_crm && <span className="error-msg">{errors.uf_crm.message}</span>}
               </div>
             </div>
 
@@ -137,19 +148,22 @@ export function DoctorForm({ open, onClose, onCadastrado }) {
 
           {/* Telefones */}
           <fieldset className={styles.fieldset}>
-            <legend className={styles.legend}>Telefones</legend>
+            <legend className={styles.legend}>Telefones *</legend>
 
             {telFields.map((field, i) => (
               <div key={field.id} className={styles.listRow}>
                 <div className={styles.telInputs}>
                   <div className="form-group" style={{ flex: 1 }}>
-                    <label htmlFor={`tel-numero-${i}`}>Número</label>
+                    <label htmlFor={`tel-numero-${i}`}>Número *</label>
                     <input
                       id={`tel-numero-${i}`}
-                      className="form-control"
+                      className={`form-control ${errors.telefones?.[i]?.numero ? 'error' : ''}`}
                       placeholder="(11) 99999-9999"
-                      {...register(`telefones.${i}.numero`)}
+                      {...register(`telefones.${i}.numero`, { required: 'Número obrigatório' })}
                     />
+                    {errors.telefones?.[i]?.numero && (
+                      <span className="error-msg">{errors.telefones[i].numero.message}</span>
+                    )}
                   </div>
                   <div className="form-group" style={{ width: 140 }}>
                     <label htmlFor={`tel-tipo-${i}`}>Tipo</label>
@@ -163,6 +177,7 @@ export function DoctorForm({ open, onClose, onCadastrado }) {
                   className={styles.removeBtn}
                   onClick={() => removeTel(i)}
                   aria-label="Remover telefone"
+                  disabled={telFields.length === 1}
                 >
                   <Trash2 size={15} />
                 </button>
@@ -180,7 +195,7 @@ export function DoctorForm({ open, onClose, onCadastrado }) {
 
           {/* Endereços */}
           <fieldset className={styles.fieldset}>
-            <legend className={styles.legend}>Endereços</legend>
+            <legend className={styles.legend}>Endereços *</legend>
 
             {endFields.map((field, i) => (
               <div key={field.id} className={styles.endBlock}>
@@ -191,6 +206,7 @@ export function DoctorForm({ open, onClose, onCadastrado }) {
                     className={styles.removeBtn}
                     onClick={() => removeEnd(i)}
                     aria-label="Remover endereço"
+                    disabled={endFields.length === 1}
                   >
                     <Trash2 size={15} />
                   </button>
@@ -211,8 +227,16 @@ export function DoctorForm({ open, onClose, onCadastrado }) {
                   </div>
 
                   <div className="form-group">
-                    <label htmlFor={`end-numero-${i}`}>Número</label>
-                    <input id={`end-numero-${i}`} className="form-control" placeholder="123" {...register(`enderecos.${i}.numero`)} />
+                    <label htmlFor={`end-numero-${i}`}>Número *</label>
+                    <input
+                      id={`end-numero-${i}`}
+                      className={`form-control ${errors.enderecos?.[i]?.numero ? 'error' : ''}`}
+                      placeholder="123"
+                      {...register(`enderecos.${i}.numero`, { required: 'Número obrigatório' })}
+                    />
+                    {errors.enderecos?.[i]?.numero && (
+                      <span className="error-msg">{errors.enderecos[i].numero.message}</span>
+                    )}
                   </div>
                   <div className="form-group">
                     <label htmlFor={`end-complemento-${i}`}>Complemento</label>
@@ -220,24 +244,55 @@ export function DoctorForm({ open, onClose, onCadastrado }) {
                   </div>
 
                   <div className="form-group">
-                    <label htmlFor={`end-bairro-${i}`}>Bairro</label>
-                    <input id={`end-bairro-${i}`} className="form-control" placeholder="Centro" {...register(`enderecos.${i}.bairro`)} />
+                    <label htmlFor={`end-bairro-${i}`}>Bairro *</label>
+                    <input
+                      id={`end-bairro-${i}`}
+                      className={`form-control ${errors.enderecos?.[i]?.bairro ? 'error' : ''}`}
+                      placeholder="Centro"
+                      {...register(`enderecos.${i}.bairro`, { required: 'Bairro obrigatório' })}
+                    />
+                    {errors.enderecos?.[i]?.bairro && (
+                      <span className="error-msg">{errors.enderecos[i].bairro.message}</span>
+                    )}
                   </div>
                   <div className="form-group">
-                    <label htmlFor={`end-cep-${i}`}>CEP</label>
-                    <input id={`end-cep-${i}`} className="form-control" placeholder="00000-000" {...register(`enderecos.${i}.cep`)} />
+                    <label htmlFor={`end-cep-${i}`}>CEP *</label>
+                    <input
+                      id={`end-cep-${i}`}
+                      className={`form-control ${errors.enderecos?.[i]?.cep ? 'error' : ''}`}
+                      placeholder="00000-000"
+                      {...register(`enderecos.${i}.cep`, { required: 'CEP obrigatório' })}
+                    />
+                    {errors.enderecos?.[i]?.cep && (
+                      <span className="error-msg">{errors.enderecos[i].cep.message}</span>
+                    )}
                   </div>
 
                   <div className="form-group">
-                    <label htmlFor={`end-cidade-${i}`}>Cidade</label>
-                    <input id={`end-cidade-${i}`} className="form-control" placeholder="São Paulo" {...register(`enderecos.${i}.cidade`)} />
+                    <label htmlFor={`end-cidade-${i}`}>Cidade *</label>
+                    <input
+                      id={`end-cidade-${i}`}
+                      className={`form-control ${errors.enderecos?.[i]?.cidade ? 'error' : ''}`}
+                      placeholder="São Paulo"
+                      {...register(`enderecos.${i}.cidade`, { required: 'Cidade obrigatória' })}
+                    />
+                    {errors.enderecos?.[i]?.cidade && (
+                      <span className="error-msg">{errors.enderecos[i].cidade.message}</span>
+                    )}
                   </div>
                   <div className="form-group">
-                    <label htmlFor={`end-estado-${i}`}>Estado</label>
-                    <select id={`end-estado-${i}`} className="form-control" {...register(`enderecos.${i}.estado`)}>
+                    <label htmlFor={`end-estado-${i}`}>Estado *</label>
+                    <select
+                      id={`end-estado-${i}`}
+                      className={`form-control ${errors.enderecos?.[i]?.estado ? 'error' : ''}`}
+                      {...register(`enderecos.${i}.estado`, { required: 'Estado obrigatório' })}
+                    >
                       <option value="">Selecione</option>
                       {UF_LIST.map(uf => <option key={uf} value={uf}>{uf}</option>)}
                     </select>
+                    {errors.enderecos?.[i]?.estado && (
+                      <span className="error-msg">{errors.enderecos[i].estado.message}</span>
+                    )}
                   </div>
                 </div>
               </div>
