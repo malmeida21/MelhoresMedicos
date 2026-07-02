@@ -1,0 +1,24 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  text-align: center;
+}
+
+.icon { color: var(--color-primary); opacity: .8; }
+
+.desc {
+  font-size: .9rem;
+  color: var(--color-text-muted);
+  max-width: 340px;
+  line-height: 1.6;
+}
+
+.form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+  text-align: left;
+}

@@ -2,28 +2,45 @@ import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { Modal } from '../Modal/Modal'
 import { salvarAvaliacao } from '../../services/avaliacoes'
-import { useAuth } from '../../contexts/AuthContext'
+import { usePerfil } from '../../contexts/PerfilContext'
 import { validarNota } from '../../utils/validators'
 import styles from './RatingForm.module.css'
 
+function recomendariaParaValor(recomendaria) {
+  if (recomendaria === true)  return 'sim'
+  if (recomendaria === false) return 'nao'
+  return ''
+}
+
+function valorParaRecomendaria(valor) {
+  if (valor === 'sim') return true
+  if (valor === 'nao') return false
+  return null
+}
+
+/**
+ * @param {{
+ *   open: boolean,
+ *   onClose: () => void,
+ *   medico: { id: string, nome: string },
+ *   usuarioId: string,
+ *   avaliacaoExistente?: { nota: number, pontos_positivos?: string, pontos_negativos?: string, recomendaria?: boolean },
+ *   onSaved?: () => void
+ * }} props
+ */
 export function RatingForm({ open, onClose, medico, usuarioId, avaliacaoExistente, onSaved }) {
-  const { user } = useAuth()
+  const { nome } = usePerfil()
   const { register, handleSubmit, reset, watch, formState: { errors, isSubmitting } } = useForm({
-    defaultValues: {
-      nota: '',
-      pontos_positivos: '',
-      pontos_negativos: '',
-      recomendaria: '',
-    }
+    defaultValues: { nota: '', pontos_positivos: '', pontos_negativos: '', recomendaria: '' },
   })
 
   useEffect(() => {
     if (avaliacaoExistente) {
       reset({
-        nota: avaliacaoExistente.nota,
+        nota:             avaliacaoExistente.nota,
         pontos_positivos: avaliacaoExistente.pontos_positivos ?? '',
         pontos_negativos: avaliacaoExistente.pontos_negativos ?? '',
-        recomendaria: avaliacaoExistente.recomendaria === true ? 'sim' : avaliacaoExistente.recomendaria === false ? 'nao' : '',
+        recomendaria:     recomendariaParaValor(avaliacaoExistente.recomendaria),
       })
     } else {
       reset({ nota: '', pontos_positivos: '', pontos_negativos: '', recomendaria: '' })
@@ -31,24 +48,20 @@ export function RatingForm({ open, onClose, medico, usuarioId, avaliacaoExistent
   }, [avaliacaoExistente, open, reset])
 
   async function onSubmit(data) {
-    const nomeAutor = user?.user_metadata?.full_name
-      || user?.user_metadata?.name
-      || user?.email?.split('@')[0]
-      || null
     await salvarAvaliacao({
-      medicoId: medico.id,
+      medicoId:       medico.id,
       usuarioId,
-      nomeAutor,
-      nota: Number(data.nota),
+      nomeAutor:      nome || null,
+      nota:           Number(data.nota),
       pontosPositivos: data.pontos_positivos,
       pontosNegativos: data.pontos_negativos,
-      recomendaria: data.recomendaria === 'sim' ? true : data.recomendaria === 'nao' ? false : null,
+      recomendaria:   valorParaRecomendaria(data.recomendaria),
     })
     onSaved?.()
     onClose()
   }
 
-  const nota = watch('nota')
+  const nota    = watch('nota')
   const notaNum = Number(nota)
 
   return (
@@ -69,11 +82,8 @@ export function RatingForm({ open, onClose, medico, usuarioId, avaliacaoExistent
               placeholder="Ex: 8.5"
               {...register('nota', { required: 'Informe uma nota', validate: validarNota })}
             />
-            {nota !== '' && !isNaN(notaNum) && (
-              <span
-                className={styles.notaPreview}
-                style={{ background: `hsl(${notaNum * 12}, 70%, 88%)` }}
-              >
+            {nota !== '' && !Number.isNaN(notaNum) && (
+              <span className={styles.notaPreview} style={{ background: `hsl(${notaNum * 12}, 70%, 88%)` }}>
                 {notaNum.toFixed(1)}
               </span>
             )}
@@ -81,19 +91,19 @@ export function RatingForm({ open, onClose, medico, usuarioId, avaliacaoExistent
           {errors.nota && <span className="error-msg">{errors.nota.message}</span>}
         </div>
 
-        <div className="form-group">
-          <label htmlFor="rec">Você recomendaria este médico?</label>
+        <fieldset className="form-group">
+          <legend className={styles.legendLabel}>Você recomendaria este médico?</legend>
           <div className={styles.radioGroup}>
             <label className={styles.radio}>
               <input type="radio" value="sim" {...register('recomendaria')} />
-              Sim
+              {' '}Sim
             </label>
             <label className={styles.radio}>
               <input type="radio" value="nao" {...register('recomendaria')} />
-              Não
+              {' '}Não
             </label>
           </div>
-        </div>
+        </fieldset>
 
         <div className="form-group">
           <label htmlFor="positivos">Pontos positivos</label>
@@ -118,9 +128,7 @@ export function RatingForm({ open, onClose, medico, usuarioId, avaliacaoExistent
         </div>
 
         <div className={styles.footer}>
-          <button type="button" className="btn btn-outline" onClick={onClose}>
-            Cancelar
-          </button>
+          <button type="button" className="btn btn-outline" onClick={onClose}>Cancelar</button>
           <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
             {isSubmitting ? 'Salvando...' : 'Salvar avaliação'}
           </button>

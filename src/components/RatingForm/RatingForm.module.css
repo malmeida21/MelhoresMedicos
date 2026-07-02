@@ -15,6 +15,13 @@
   font-weight: 700;
 }
 
+.legendLabel {
+  font-size: .875rem;
+  font-weight: 500;
+  margin-bottom: .4rem;
+  color: var(--color-text);
+}
+
 .radioGroup { display: flex; gap: 1.5rem; }
 .radio {
   display: flex;

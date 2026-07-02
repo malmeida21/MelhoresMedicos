@@ -1,5 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { AuthProvider } from './contexts/AuthContext'
+import { PerfilProvider } from './contexts/PerfilContext'
+import { NomeModal } from './components/NomeModal/NomeModal'
 import { Header } from './components/Header/Header'
 import { Home } from './pages/Home/Home'
 import { DoctorProfile } from './pages/DoctorProfile/DoctorProfile'
@@ -12,18 +14,21 @@ import { Importacao } from './pages/Importacao/Importacao'
 export default function App() {
   return (
     <AuthProvider>
-      <BrowserRouter>
-        <Header />
-        <Routes>
-          <Route path="/"            element={<Home />} />
-          <Route path="/medico/:id"  element={<DoctorProfile />} />
-          <Route path="/ranking"     element={<Ranking />} />
-          <Route path="/busca"       element={<Search />} />
-          <Route path="/auth"        element={<Auth />} />
-          <Route path="/favoritos"   element={<Favorites />} />
-          <Route path="/importar"    element={<Importacao />} />
-        </Routes>
-      </BrowserRouter>
+      <PerfilProvider>
+        <BrowserRouter>
+          <Header />
+          <NomeModal />
+          <Routes>
+            <Route path="/"            element={<Home />} />
+            <Route path="/medico/:id"  element={<DoctorProfile />} />
+            <Route path="/ranking"     element={<Ranking />} />
+            <Route path="/busca"       element={<Search />} />
+            <Route path="/auth"        element={<Auth />} />
+            <Route path="/favoritos"   element={<Favorites />} />
+            <Route path="/importar"    element={<Importacao />} />
+          </Routes>
+        </BrowserRouter>
+      </PerfilProvider>
     </AuthProvider>
   )
 }

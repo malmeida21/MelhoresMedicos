@@ -114,14 +114,21 @@ export function DoctorProfile() {
               <div className={styles.infoCard}>
                 <h3 className={styles.infoTitle}><Phone size={15} /> Telefones</h3>
                 <ul className={styles.infoList}>
-                  {telefones.map(t => (
-                    <li key={t.id} className={styles.infoItem}>
-                      <a href={`tel:${t.numero.replace(/\D/g, '')}`} className={styles.telLink}>
-                        {t.numero}
-                      </a>
-                      <span className={styles.infoBadge}>{t.tipo}</span>
-                    </li>
-                  ))}
+                  {telefones.map(t => {
+                    const digits = t.numero.replace(/\D/g, '')
+                    const isWhatsApp = t.tipo === 'WhatsApp'
+                    const href = isWhatsApp
+                      ? `https://wa.me/55${digits}`
+                      : `tel:${digits}`
+                    return (
+                      <li key={t.id} className={styles.infoItem}>
+                        <a href={href} className={styles.telLink} target={isWhatsApp ? '_blank' : undefined} rel={isWhatsApp ? 'noopener noreferrer' : undefined}>
+                          {t.numero}
+                        </a>
+                        <span className={styles.infoBadge}>{t.tipo}</span>
+                      </li>
+                    )
+                  })}
                 </ul>
               </div>
             )}
