@@ -1,0 +1,1 @@
+ALTER TABLE avaliacoes ADD COLUMN IF NOT EXISTS nome_autor TEXT;

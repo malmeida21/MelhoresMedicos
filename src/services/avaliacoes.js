@@ -21,10 +21,11 @@ export async function buscarAvaliacaoUsuario(medicoId, usuarioId) {
   return data
 }
 
-export async function salvarAvaliacao({ medicoId, usuarioId, nota, pontosPositivos, pontosNegativos, recomendaria }) {
+export async function salvarAvaliacao({ medicoId, usuarioId, nomeAutor, nota, pontosPositivos, pontosNegativos, recomendaria }) {
   const payload = {
     medico_id: medicoId,
     usuario_id: usuarioId,
+    nome_autor: nomeAutor || null,
     nota,
     pontos_positivos: pontosPositivos,
     pontos_negativos: pontosNegativos,

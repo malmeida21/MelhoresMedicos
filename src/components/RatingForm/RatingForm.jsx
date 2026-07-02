@@ -2,10 +2,12 @@ import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { Modal } from '../Modal/Modal'
 import { salvarAvaliacao } from '../../services/avaliacoes'
+import { useAuth } from '../../contexts/AuthContext'
 import { validarNota } from '../../utils/validators'
 import styles from './RatingForm.module.css'
 
 export function RatingForm({ open, onClose, medico, usuarioId, avaliacaoExistente, onSaved }) {
+  const { user } = useAuth()
   const { register, handleSubmit, reset, watch, formState: { errors, isSubmitting } } = useForm({
     defaultValues: {
       nota: '',
@@ -29,9 +31,14 @@ export function RatingForm({ open, onClose, medico, usuarioId, avaliacaoExistent
   }, [avaliacaoExistente, open, reset])
 
   async function onSubmit(data) {
+    const nomeAutor = user?.user_metadata?.full_name
+      || user?.user_metadata?.name
+      || user?.email?.split('@')[0]
+      || null
     await salvarAvaliacao({
       medicoId: medico.id,
       usuarioId,
+      nomeAutor,
       nota: Number(data.nota),
       pontosPositivos: data.pontos_positivos,
       pontosNegativos: data.pontos_negativos,

@@ -6,6 +6,7 @@ import { curtirAvaliacao, descurtirAvaliacao, denunciarAvaliacao } from '../../s
 import { useAuth } from '../../contexts/AuthContext'
 import styles from './RatingCard.module.css'
 
+/** @param {{ avaliacao: { id: string, nota: number, nome_autor?: string, curtidas?: number, criado_em: string, recomendaria?: boolean, pontos_positivos?: string, pontos_negativos?: string }, isMine?: boolean, onEdit?: Function }} props */
 export function RatingCard({ avaliacao, isMine = false, onEdit }) {
   const { user } = useAuth()
   const [curtidas, setCurtidas] = useState(avaliacao.curtidas ?? 0)
@@ -44,9 +45,7 @@ export function RatingCard({ avaliacao, isMine = false, onEdit }) {
     }
   }
 
-  const autorLabel = avaliacao.autor?.email
-    ? avaliacao.autor.email.split('@')[0]
-    : 'Usuário'
+  const autorLabel = avaliacao.nome_autor || 'Usuário'
 
   return (
     <div className={`${styles.card} ${isMine ? styles.mine : ''}`}>
